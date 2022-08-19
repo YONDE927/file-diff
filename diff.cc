@@ -52,7 +52,9 @@ shared_ptr<diff> diff_list::pop_diff(){
     return shared_ptr<diff>(nullptr);
 }
 
-
+void diff_list::reset(){
+    list->reset();
+}
 
 
 

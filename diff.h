@@ -27,4 +27,5 @@ class diff_list{
         diff_list(std::string&& path);
         void append_diff(diff& d);
         shared_ptr<diff> pop_diff();
+        void reset();
 };
