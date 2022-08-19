@@ -4,6 +4,11 @@ project(file-diff C CXX)
 
 set(srcs "diff.cc") 
 set(test-srcs "test.cc") 
-add_subdirectory(./file_list)
-add_library(${CMAKE_PROJECT_NAME} STATIC ${srcs})
-add_executable(${CMAKE_PROJECT_NAME}-test test-srcs)
+
+add_subdirectory(${CMAKE_SOURCE_DIR}/file-list)
+
+add_library(file-diff STATIC ${srcs})
+target_link_libraries(file-diff file-list)
+
+add_executable(${CMAKE_PROJECT_NAME}-test ${test-srcs})
+target_link_libraries(${CMAKE_PROJECT_NAME}-test file-diff)

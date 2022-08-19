@@ -24,7 +24,7 @@ int diff::cat(const diff& d){
     return 0;
 }
 
-diff_list::diff_list(std::string& path){
+diff_list::diff_list(std::string&& path){
     file_path = path;
     diff_path = path;
     diff_path.append(".diff");
@@ -32,6 +32,7 @@ diff_list::diff_list(std::string& path){
 }
 
 void diff_list::append_diff(diff& d){
+    //既存の差分をチェック
     auto back_block = list->new_back_block();
     back_block->write_buffer(d);
 }
@@ -39,7 +40,12 @@ void diff_list::append_diff(diff& d){
 shared_ptr<diff> diff_list::pop_diff(){
     auto fblock = list->first_block();
     if(fblock != nullptr){
-        auto d = fblock->read_buffer<diff>();
+        shared_ptr<diff> d(new diff);  
+        try{
+            fblock->read_buffer<diff>(*d);
+        }catch(std::exception& e){
+            return shared_ptr<diff>(nullptr);
+        }
         list->delete_block(fblock);
         return d;
     }
