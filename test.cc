@@ -1,4 +1,5 @@
 #include "diff.h"
+#include "file-list/cmd-caller.h"
 #include <memory>
 
 using namespace std;
@@ -10,14 +11,26 @@ int main(){
     diff d4{1,4,8,3};
   
     diff_list list("sample");
-    list.reset();
+    //list.reset();
+
     list.append_diff(d1);
+    list.sync();
+    call_cmd("../showdiff.sh sample.diff");
+    
     auto d = list.pop_diff();
-    cout << d->type << " " << d->offset << " " << d->size << " " << d->time << endl;
+    if(d != nullptr){
+        cout << d->type << " " << d->offset << " " << d->size << " " << d->time << endl;
+    }
+
+    cout << endl;
 
     list.append_diff(d2);
-    list.append_diff(d3);
+    list.sync();
+    call_cmd("../showdiff.sh sample.diff");
+
     d = list.pop_diff();
-    cout << d->type << " " << d->offset << " " << d->size << " " << d->time << endl;
+    if(d != nullptr){
+        cout << d->type << " " << d->offset << " " << d->size << " " << d->time << endl;
+    }
     return 0;
 }

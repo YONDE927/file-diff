@@ -24,8 +24,9 @@ class diff_list{
         std::string file_path;
         std::string diff_path;
     public:
-        diff_list(std::string&& path);
+        diff_list(std::string path);
         void append_diff(diff& d);
         shared_ptr<diff> pop_diff();
+        void sync();
         void reset();
 };

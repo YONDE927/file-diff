@@ -24,7 +24,7 @@ int diff::cat(const diff& d){
     return 0;
 }
 
-diff_list::diff_list(std::string&& path){
+diff_list::diff_list(std::string path){
     file_path = path;
     diff_path = path;
     diff_path.append(".diff");
@@ -50,6 +50,10 @@ shared_ptr<diff> diff_list::pop_diff(){
         return d;
     }
     return shared_ptr<diff>(nullptr);
+}
+
+void diff_list::sync(){
+    list->sync();
 }
 
 void diff_list::reset(){
