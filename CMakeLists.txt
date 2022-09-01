@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -ggdb")
 set(srcs "diff.cc") 
 set(test-srcs "test.cc") 
 
-add_subdirectory(${CMAKE_SOURCE_DIR}/file-list)
+add_subdirectory(file-list)
 
 add_library(file-diff STATIC ${srcs})
 target_link_libraries(file-diff file-list)
